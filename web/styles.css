@@ -558,13 +558,46 @@ h3 { font-size: 1rem; font-weight: 700; }
   .quality-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 640px) {
-  .page { padding: 16px 14px 40px; }
+  html { scroll-padding-top: 64px; }
+  body { overflow-x: hidden; }
+  .topbar__inner { padding: 10px 14px; gap: 10px; }
+  .theme-toggle { width: 40px; height: 40px; flex: 0 0 auto; }
+  .refresh-btn { width: 40px; padding: 0; justify-content: center; }
+  .refresh-btn #refresh-label { display: none; }
+  .toast { left: 14px; right: 14px; bottom: 14px; max-width: none; }
+  .page { padding: 16px 14px 40px; gap: 16px; }
   .brand__name { display: none; }
   .kpis, .scen-grid, .ha-grid, .stat-row, .fg-grid { grid-template-columns: 1fr 1fr; }
   .hero { grid-template-columns: 1fr; }
+  .hero__meta { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .meta-box { min-width: 0; }
+  .meta-box:first-child { grid-column: 1 / -1; }
   .next-match { grid-template-columns: 1fr; }
+  .next-match__teams { font-size: 1.1rem; flex-wrap: wrap; }
+  .countdown { width: 100%; }
+  .countdown div { min-width: 0; flex: 1; padding-inline: 6px; }
+  .filters {
+    position: static;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    padding: 0;
+    background: transparent;
+  }
+  .filters .seg { display: flex; width: 100%; overflow-x: auto; overscroll-behavior-inline: contain; scrollbar-width: none; }
+  .filters .seg::-webkit-scrollbar { display: none; }
+  .filters .seg button { flex: 1 0 auto; min-height: 42px; }
+  .card { padding: 18px; }
+  .card__head { margin-bottom: 12px; }
+  .chart { height: 250px; }
+  .chart--lg, .chart--analysis { height: 290px; }
+  .chart--cal { height: 180px; }
+  .chart--donut { width: min(220px, 100%); }
+  .table-wrap { width: 100%; max-width: 100%; overscroll-behavior-inline: contain; scrollbar-width: thin; }
+  .table { min-width: 520px; }
+  #proj-table, #seasons-table { min-width: 410px; }
+  .section__head { align-items: start; gap: 8px; }
   .donut-wrap { flex-direction: column; }
-  .footer__inner { grid-template-columns: 1fr; }
+  .footer__inner { grid-template-columns: 1fr; padding: 24px 14px; }
   .section__aside { text-align: left; }
   .analysis-grid, .analysis-grid--3, .finance-kpis { grid-template-columns: 1fr; }
   .analysis-panel { padding: 16px; }
@@ -578,4 +611,30 @@ h3 { font-size: 1rem; font-weight: 700; }
   .market-value { text-align: left; }
   .finance-card .money { white-space: normal; }
   .quality-summary, .quality-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.3rem; }
+  .hero__sub { font-size: .9rem; line-height: 1.5; }
+  .kpis, .scen-grid, .ha-grid { grid-template-columns: 1fr; }
+  .kpi:hover, .market-player:hover { transform: none; }
+  .kpi__value { font-size: 2.6rem; }
+  .stat-row { grid-template-columns: 1fr 1fr; }
+  .stat-row--2 { grid-template-columns: 1fr; }
+  .card__head > .seg { display: flex; width: 100%; overflow-x: auto; scrollbar-width: none; }
+  .card__head > .seg::-webkit-scrollbar { display: none; }
+  .card__head > .seg button { flex: 1 0 auto; min-height: 40px; }
+  .legend-inline { line-height: 1.7; }
+  .last5 { align-items: flex-start; gap: 10px; flex-direction: column; }
+  .last5 > div { flex-wrap: wrap; }
+  .chips { display: grid; grid-template-columns: 1fr; }
+  .chip { width: 100%; }
+  .chip__prob { margin-left: auto; }
+  .streaks { grid-template-columns: 1fr; }
+  .hl { grid-template-columns: auto minmax(0, 1fr) auto; }
+  .analysis-subhead { flex-direction: column; }
+  .quality-summary { gap: 2px; }
+  .quality-summary > div { padding: 8px; }
+  .chart--analysis { height: 270px; }
 }
