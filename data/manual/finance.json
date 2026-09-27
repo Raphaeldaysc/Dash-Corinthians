@@ -1,0 +1,55 @@
+{
+  "currency": "BRL",
+  "methodology": {
+    "official_scope": "Receita operacional bruta mais receitas na negociação de direitos; valores extraídos das demonstrações financeiras.",
+    "ticket_proxy": "2024 e 2025: receita oficial de matchday dividida pelo público pagante registrado no dashboard. 2026: mantém o proxy de 2025, sem correção inflacionária.",
+    "current_year": "Estimativa parcial: público dos jogos em casa × proxy de receita por torcedor + premiações de fases cadastradas. Não inclui TV, patrocínios, vendas de atletas, licenciamento, Fiel Torcedor ou outras receitas."
+  },
+  "official": [
+    {
+      "year": 2024,
+      "revenue_total": 1114922000,
+      "breakdown": {
+        "receita_operacional": 776864000,
+        "negociacao_de_direitos": 338421000,
+        "matchday": 94081000,
+        "premiacoes": 51343000
+      },
+      "debt_total": 2467933000,
+      "source": "https://futebolpaulista.com.br/Repositorio/Institucional/2024/Corinthians%201.pdf"
+    },
+    {
+      "year": 2025,
+      "revenue_total": 971090000,
+      "breakdown": {
+        "receita_operacional": 863685000,
+        "negociacao_de_direitos": 107405000,
+        "matchday": 118597000,
+        "premiacoes": 128825000
+      },
+      "debt_total": 2757292000,
+      "source": "https://blogdopaulinho.com.br/wp-content/uploads/2026/04/Demonstracoes-Financeiras-SCCP-2025.pdf"
+    }
+  ],
+  "ticket_avg_price": {
+    "2024": 64.75,
+    "2025": 74.45,
+    "2026": 74.45
+  },
+  "fx": {},
+  "prizes": {
+    "2026": {
+      "copa_do_brasil": {
+        "currency": "BRL",
+        "stages": {
+          "5 fase": 2000000,
+          "Oitavas": 3000000,
+          "Quartas": 4000000,
+          "Semifinal": 9000000,
+          "Final": 34000000
+        },
+        "positions": {}
+      }
+    }
+  }
+}

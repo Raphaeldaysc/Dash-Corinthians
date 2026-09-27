@@ -1,0 +1,11 @@
+.env
+data/raw/
+data/last_refresh.json
+data/match_details.json
+data/player_photos.json
+__pycache__/
+*.pyc
+.venv/
+venv/
+.vercel/
+*.log

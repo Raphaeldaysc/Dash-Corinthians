@@ -1,0 +1,59 @@
+{
+  "as_of": "2026-09-27",
+  "bans": [
+    {
+      "start": "2026-07-13",
+      "end": null,
+      "authority": "FIFA / CBF",
+      "reason": "Restrições ativas por débitos de transferências, multa disciplinar e parcela do plano da CNRD.",
+      "source": "https://ge.globo.com/futebol/times/corinthians/noticia/2026/07/21/corinthians-santos-e-sao-paulo-acumulam-cinco-transfer-bans-veja-a-lista.ghtml"
+    }
+  ],
+  "debts": [
+    {
+      "creditor": "Midtjylland — Charles",
+      "amount": 6000000,
+      "currency": "BRL",
+      "due_date": null,
+      "status": "aberto",
+      "fifa_case": true,
+      "source": "https://ge.globo.com/futebol/times/corinthians/noticia/2026/07/21/corinthians-santos-e-sao-paulo-acumulam-cinco-transfer-bans-veja-a-lista.ghtml"
+    },
+    {
+      "creditor": "Philadelphia Union — José Martínez",
+      "amount": 1500000,
+      "currency": "USD",
+      "due_date": null,
+      "status": "aberto",
+      "fifa_case": true,
+      "source": "https://ge.globo.com/futebol/times/corinthians/noticia/2026/07/21/corinthians-santos-e-sao-paulo-acumulam-cinco-transfer-bans-veja-a-lista.ghtml"
+    },
+    {
+      "creditor": "CNRD — parcela do plano coletivo",
+      "amount": 8000000,
+      "currency": "BRL",
+      "due_date": null,
+      "status": "aberto",
+      "fifa_case": false,
+      "source": "https://ge.globo.com/futebol/times/corinthians/noticia/2026/07/21/corinthians-santos-e-sao-paulo-acumulam-cinco-transfer-bans-veja-a-lista.ghtml"
+    },
+    {
+      "creditor": "FIFA — multa disciplinar",
+      "amount": 225000,
+      "currency": "USD",
+      "due_date": null,
+      "status": "aberto",
+      "fifa_case": true,
+      "source": "https://ge.globo.com/futebol/times/corinthians/noticia/2026/07/21/corinthians-santos-e-sao-paulo-acumulam-cinco-transfer-bans-veja-a-lista.ghtml"
+    },
+    {
+      "creditor": "New York City — Talles Magno",
+      "amount": 850000,
+      "currency": "USD",
+      "due_date": null,
+      "status": "aberto",
+      "fifa_case": true,
+      "source": "https://ge.globo.com/futebol/times/corinthians/noticia/2026/07/21/corinthians-santos-e-sao-paulo-acumulam-cinco-transfer-bans-veja-a-lista.ghtml"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "name": "António Oliveira",
+    "start": "2024-02-09",
+    "end": "2024-07-02",
+    "interim": false
+  },
+  {
+    "name": "Ramón Díaz",
+    "start": "2024-07-10",
+    "end": "2025-04-17",
+    "interim": false
+  },
+  {
+    "name": "Orlando Ribeiro",
+    "start": "2025-04-18",
+    "end": "2025-04-27",
+    "interim": true
+  },
+  {
+    "name": "Dorival Júnior",
+    "start": "2025-04-28",
+    "end": "2026-04-05",
+    "interim": false
+  },
+  {
+    "name": "Fernando Diniz",
+    "start": "2026-04-06",
+    "end": null,
+    "interim": false
+  }
+]

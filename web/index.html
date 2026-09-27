@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Corinthians · Painel da campanha</title>
+  <meta name="description" content="Painel interativo da campanha do Corinthians em todas as competições." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js" defer></script>
+  <script src="app.js" type="module"></script>
+</head>
+<body>
+  <div class="bg-watermark" aria-hidden="true">SCCP</div>
+
+  <header class="topbar">
+    <div class="topbar__inner">
+      <a class="brand" href="#top">
+        <img id="brand-logo" alt="" width="28" height="28" />
+        <span class="brand__name">CORINTHIANS</span>
+        <span class="brand__season" id="brand-season">—</span>
+      </a>
+      <nav class="topnav" aria-label="Seções">
+        <a href="#campanha">Campanha</a>
+        <a href="#cenarios">Probabilidades</a>
+        <a href="#evolucao">Evolução</a>
+        <a href="#competicoes">Competições</a>
+        <a href="#temporadas">Temporadas</a>
+        <a href="#gols">Gols</a>
+        <a href="#jogos">Jogos</a>
+        <a href="#analises">Análises</a>
+      </nav>
+      <button class="refresh-btn" id="refresh-btn" type="button" hidden>
+        <span class="refresh-btn__icon" aria-hidden="true"></span><span id="refresh-label">Atualizar dados</span>
+      </button>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Alternar tema">
+        <span class="theme-toggle__icon" aria-hidden="true"></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="top" class="page">
+    <!-- HERO ------------------------------------------------------------ -->
+    <section class="hero reveal" id="campanha">
+      <div class="hero__text">
+        <p class="eyebrow"><span class="dot"></span><span id="hero-eyebrow">Todas as competições</span></p>
+        <h1>Painel da campanha</h1>
+        <p class="hero__sub">Visão interativa da temporada do Timão, jogo a jogo, em todas as competições.</p>
+      </div>
+      <div class="hero__meta">
+        <div class="meta-box"><span>Período</span><strong id="meta-period">—</strong></div>
+        <div class="meta-box"><span>Jogos disputados</span><strong id="meta-games">—</strong></div>
+        <div class="meta-box"><span>Competições</span><strong id="meta-comps">—</strong></div>
+      </div>
+      <div class="next-match" id="next-match" hidden></div>
+    </section>
+
+    <!-- FILTROS ---------------------------------------------------------- -->
+    <div class="filters reveal" role="toolbar" aria-label="Filtros">
+      <div class="seg" id="filter-season" role="radiogroup" aria-label="Temporada"></div>
+      <div class="seg seg--scroll" id="filter-comp" role="radiogroup" aria-label="Competição"></div>
+      <div class="seg" id="filter-venue" role="radiogroup" aria-label="Mando">
+        <button type="button" data-value="all" class="is-active">Todos os jogos</button>
+        <button type="button" data-value="H">Em casa</button>
+        <button type="button" data-value="A">Fora</button>
+      </div>
+    </div>
+
+    <!-- KPIs -------------------------------------------------------------- -->
+    <section class="kpis reveal" id="kpis">
+      <article class="card kpi">
+        <header class="kpi__head"><span>Aproveitamento</span><span class="pill" id="kpi-rate-pill">—</span></header>
+        <div class="kpi__value"><span id="kpi-rate">0</span><small>%</small></div>
+        <div class="bar"><span id="kpi-rate-bar"></span><i id="kpi-rate-target"></i></div>
+        <p class="kpi__foot" id="kpi-rate-foot">—</p>
+      </article>
+      <article class="card kpi">
+        <header class="kpi__head"><span>Campanha</span><span class="pill pill--mono" id="kpi-camp-pill">V · E · D</span></header>
+        <div class="wdl">
+          <div class="wdl__box wdl__box--w"><strong id="kpi-w">0</strong><span>vitórias</span></div>
+          <div class="wdl__box wdl__box--d"><strong id="kpi-d">0</strong><span>empates</span></div>
+          <div class="wdl__box wdl__box--l"><strong id="kpi-l">0</strong><span>derrotas</span></div>
+        </div>
+        <p class="kpi__foot" id="kpi-camp-foot">—</p>
+      </article>
+      <article class="card kpi">
+        <header class="kpi__head"><span>Média por jogo</span><span class="pill" id="kpi-ppg-pill">—</span></header>
+        <div class="kpi__value"><span id="kpi-ppg">0</span><small>pts</small></div>
+        <div class="bar"><span id="kpi-ppg-bar"></span></div>
+        <p class="kpi__foot" id="kpi-ppg-foot">—</p>
+      </article>
+      <article class="card kpi">
+        <header class="kpi__head"><span>Saldo de gols</span><span class="pill" id="kpi-gd-pill">—</span></header>
+        <div class="kpi__value"><span id="kpi-gd">0</span></div>
+        <div class="mini-grid">
+          <div><strong id="kpi-gf">0</strong><span>marcados</span></div>
+          <div><strong id="kpi-ga">0</strong><span>sofridos</span></div>
+          <div><strong id="kpi-cs">0</strong><span>sem sofrer</span></div>
+        </div>
+      </article>
+    </section>
+
+    <!-- CENÁRIOS ---------------------------------------------------------- -->
+    <section class="section reveal" id="cenarios">
+      <div class="section__head">
+        <div>
+          <p class="eyebrow eyebrow--red">Modelo de cenários · Brasileirão</p>
+          <h2 id="scen-title">As rodadas finais</h2>
+        </div>
+        <p class="section__aside" id="scen-aside">Probabilidades estimadas por 10.000 simulações Monte Carlo com modelo de Poisson.</p>
+      </div>
+      <div class="scen-grid" id="scen-cards"></div>
+      <div class="grid-2">
+        <article class="card">
+          <header class="card__head"><h3>Distribuição de posição final</h3><span class="muted small" id="scen-exp-pos"></span></header>
+          <div class="chart" id="chart-position"></div>
+        </article>
+        <article class="card">
+          <header class="card__head"><h3>Tabela projetada</h3><span class="muted small">pontos esperados ao fim do campeonato</span></header>
+          <div class="table-wrap"><table class="table" id="proj-table"></table></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- EVOLUÇÃO + RESULTADOS -------------------------------------------- -->
+    <section class="grid-main reveal" id="evolucao">
+      <article class="card card--xl">
+        <header class="card__head">
+          <div><p class="eyebrow eyebrow--red">Jogo a jogo</p><h2>Evolução dos pontos</h2></div>
+          <div class="legend-inline"><span class="lg lg--line"></span>Pontos <span class="lg lg--dash"></span>Ritmo da meta</div>
+        </header>
+        <div class="stat-row">
+          <div class="stat"><span>Pontuação atual</span><strong id="evo-pts">—</strong></div>
+          <div class="stat"><span>Ritmo da meta</span><strong id="evo-target">—</strong></div>
+          <div class="stat"><span>Diferença</span><strong id="evo-diff">—</strong></div>
+          <div class="stat"><span>Forma (últ. 5)</span><strong id="evo-form">—</strong></div>
+        </div>
+        <div class="chart chart--lg" id="chart-evolution"></div>
+        <p class="muted small" id="evo-caption"></p>
+      </article>
+
+      <article class="card">
+        <header class="card__head"><div><p class="eyebrow eyebrow--red">Distribuição</p><h2>Resultados</h2></div></header>
+        <div class="donut-wrap">
+          <div class="chart chart--donut" id="chart-donut"></div>
+          <ul class="donut-legend" id="donut-legend"></ul>
+        </div>
+        <div class="stat-row stat-row--2">
+          <div class="stat"><span>Taxa de vitórias</span><strong id="res-winrate">—</strong></div>
+          <div class="stat"><span>Jogos sem perder</span><strong id="res-unbeaten">—</strong></div>
+        </div>
+        <div class="last5"><span class="muted small">Últimos 5</span><div id="last5"></div></div>
+      </article>
+    </section>
+
+    <!-- MANDO + CHEGADA ---------------------------------------------------- -->
+    <section class="grid-2 reveal" id="mando">
+      <article class="card">
+        <header class="card__head"><div><p class="eyebrow eyebrow--red">Mando de campo</p><h2>Onde rende mais?</h2></div></header>
+        <div class="ha-grid" id="ha-cards"></div>
+        <div class="ha-bars" id="ha-bars"></div>
+        <p class="callout" id="ha-callout"></p>
+      </article>
+
+      <article class="card" id="chegada">
+        <header class="card__head">
+          <div><p class="eyebrow eyebrow--red" id="arr-eyebrow">Projeção · Brasileirão</p><h2>Cenário de chegada</h2></div>
+          <span class="badge" id="arr-badge">—</span>
+        </header>
+        <p id="arr-text" class="lead"></p>
+        <div class="slider">
+          <label for="arr-slider">Simular meta de pontos</label>
+          <div class="slider__row"><input type="range" id="arr-slider" min="0" max="114" value="60" /><output id="arr-out">60</output></div>
+        </div>
+        <p class="callout callout--red" id="arr-need"></p>
+        <div class="upcoming">
+          <p class="eyebrow">Próximos adversários</p>
+          <div class="chips" id="arr-next"></div>
+        </div>
+      </article>
+    </section>
+
+    <!-- JOGO A JOGO -------------------------------------------------------- -->
+    <section class="card reveal" id="jogos">
+      <header class="card__head">
+        <div><p class="eyebrow eyebrow--red">Consistência</p><h2>Rendimento jogo a jogo</h2></div>
+        <div class="legend-inline"><span class="lg lg--w"></span>Vitória <span class="lg lg--d"></span>Empate <span class="lg lg--l"></span>Derrota <span class="lg lg--line"></span>Média móvel (5)</div>
+      </header>
+      <div class="chart chart--lg" id="chart-games"></div>
+      <div class="table-wrap table-wrap--tall"><table class="table table--games" id="games-table"></table></div>
+    </section>
+
+    <!-- COMPETIÇÕES ---------------------------------------------------------- -->
+    <section class="section reveal" id="competicoes">
+      <div class="section__head">
+        <div><p class="eyebrow eyebrow--red">Todas as frentes</p><h2>Campanha por competição</h2></div>
+        <p class="section__aside">Fase atual, aproveitamento e caminho no mata-mata.</p>
+      </div>
+      <div class="comp-grid" id="comp-cards"></div>
+    </section>
+
+    <!-- TEMPORADAS ----------------------------------------------------------- -->
+    <section class="grid-main reveal" id="temporadas">
+      <article class="card card--xl">
+        <header class="card__head"><div><p class="eyebrow eyebrow--red">Comparativo</p><h2>Temporada x temporada</h2></div>
+          <div class="seg seg--sm" id="seasons-mode">
+            <button type="button" data-value="all" class="is-active">Aproveitamento (todas)</button>
+            <button type="button" data-value="league">Pontos no Brasileirão</button>
+          </div>
+        </header>
+        <div class="chart chart--lg" id="chart-seasons"></div>
+      </article>
+      <article class="card">
+        <header class="card__head"><h3>Resumo por ano</h3></header>
+        <div class="table-wrap"><table class="table" id="seasons-table"></table></div>
+      </article>
+    </section>
+
+    <!-- CLÁSSICOS ---------------------------------------------------------- -->
+    <section class="section reveal" id="classicos">
+      <div class="section__head">
+        <div><p class="eyebrow eyebrow--red">Rivalidade</p><h2>Clássicos</h2></div>
+        <p class="section__aside">Retrospecto nas temporadas analisadas.</p>
+      </div>
+      <div class="classic-grid" id="classic-cards"></div>
+    </section>
+
+    <!-- GOLS ------------------------------------------------------------------ -->
+    <section class="grid-2 reveal" id="gols">
+      <article class="card">
+        <header class="card__head"><div><p class="eyebrow eyebrow--red">Quando acontece</p><h2>Gols por faixa de minuto</h2></div></header>
+        <div class="chart chart--lg" id="chart-minutes"></div>
+        <div class="fg-grid" id="first-goal"></div>
+      </article>
+      <article class="card">
+        <header class="card__head"><div><p class="eyebrow eyebrow--red">Quem decide</p><h2>Artilheiros e garçons</h2></div>
+          <div class="seg seg--sm" id="scorer-mode">
+            <button type="button" data-value="scorers" class="is-active">Gols</button>
+            <button type="button" data-value="assists">Assistências</button>
+            <button type="button" data-value="squad">Elenco</button>
+          </div>
+        </header>
+        <ol class="rank" id="scorers"></ol>
+      </article>
+    </section>
+
+    <!-- CALENDÁRIO + DESCANSO + SEQUÊNCIAS --------------------------------- -->
+    <section class="grid-main reveal" id="calendario">
+      <article class="card card--xl">
+        <header class="card__head"><div><p class="eyebrow eyebrow--red">Maratona</p><h2>Calendário da temporada</h2></div></header>
+        <div class="chart chart--cal" id="chart-calendar"></div>
+        <div class="grid-2 grid-2--tight">
+          <div><h3 class="h3-sm">Descanso x resultado</h3><div class="chart chart--sm" id="chart-rest"></div></div>
+          <div><h3 class="h3-sm">Contra quem pontua</h3><div class="tiers" id="tiers"></div></div>
+        </div>
+      </article>
+      <article class="card">
+        <header class="card__head"><div><p class="eyebrow eyebrow--red">Momento</p><h2>Sequências</h2></div></header>
+        <div class="streaks" id="streaks"></div>
+        <div class="highlight" id="highlights"></div>
+      </article>
+    </section>
+
+    <!-- ANÁLISES AMPLIADAS --------------------------------------------- -->
+    <section class="section reveal analysis-hub" id="analises">
+      <div class="section__head">
+        <div><p class="eyebrow eyebrow--red">Futebol & gestão</p><h2>Central de análises</h2></div>
+        <p class="section__aside">Indicadores calculados com regras explícitas. Estimativas não substituem avaliação técnica, contábil ou jurídica.</p>
+      </div>
+      <div class="analysis-tabs" id="analysis-tabs" role="tablist" aria-label="Central de análises">
+        <button type="button" role="tab" aria-selected="true" data-value="coaches" class="is-active">Técnicos</button>
+        <button type="button" role="tab" aria-selected="false" data-value="squad">Elenco</button>
+        <button type="button" role="tab" aria-selected="false" data-value="scouting">Mercado</button>
+        <button type="button" role="tab" aria-selected="false" data-value="finance">Finanças & bans</button>
+        <button type="button" role="tab" aria-selected="false" data-value="quality">Qualidade dos dados</button>
+      </div>
+      <div class="analysis-panel card" id="analysis-panel" role="tabpanel"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <div>
+        <strong>Fontes</strong>
+        <ul id="sources"></ul>
+      </div>
+      <div>
+        <strong>Atualizado em</strong>
+        <p id="updated">—</p>
+        <details><summary>Avisos do ETL</summary><ul id="notes"></ul></details>
+      </div>
+      <p class="muted small">Projeções são estimativas estatísticas e não garantem resultados. Dados não oficiais.</p>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+  <div class="loading" id="loading"><div class="loading__ring"></div><p>Carregando a campanha…</p></div>
+</body>
+</html>
