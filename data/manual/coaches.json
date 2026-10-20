@@ -26,6 +26,18 @@
   {
     "name": "Fernando Diniz",
     "start": "2026-04-06",
+    "end": "2026-10-07",
+    "interim": false
+  },
+  {
+    "name": "William Batista",
+    "start": "2026-10-08",
+    "end": "2026-10-18",
+    "interim": true
+  },
+  {
+    "name": "Clarence Seedorf",
+    "start": "2026-10-19",
     "end": null,
     "interim": false
   }
